@@ -1,0 +1,173 @@
+.ai-chat {
+  min-height: 100vh;
+  background-color: #f5e6cc;
+  background-image: url("https://noithatbinhminh.com.vn/wp-content/uploads/2023/09/background-lich-su-dep-02.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  font-family: "Merriweather", serif;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #3c2f1e;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #5c4b32;
+    }
+  }
+
+  &__box {
+    background: rgba(255, 255, 255, 0.9);
+    width: 90%;
+    max-width: 800px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  &__messages {
+    flex: 1;
+    padding: 20px;
+    height: 60vh;
+    overflow-y: auto;
+  }
+
+  &__message {
+    margin-bottom: 20px;
+
+    .msg-content {
+      padding: 12px 16px;
+      border-radius: 10px;
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+
+    &.system .system-msg {
+      text-align: center;
+      background: #f7f2e7;
+      color: #5c4b32;
+      padding: 10px;
+      border-radius: 8px;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    &.user .msg-content {
+      background: #7a5633;
+      color: #fff;
+      max-width: 70%;
+      margin-left: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    &.ai .msg-content {
+      background: #f2e0c2;
+      color: #3b2a1b;
+      max-width: 70%;
+      margin-right: auto;
+      border: 1px solid #d8b983;
+    }
+
+    &.error .error-msg {
+      background: #ffdddd;
+      color: #a10000;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+  }
+
+  &__input {
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #d6b992;
+    background: #fff;
+    padding: 15px;
+
+    textarea {
+      flex: 1;
+      border: 1px solid #d6b992;
+      border-radius: 10px;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: none;
+      height: 50px;
+      &:focus {
+        outline: none;
+        border-color: #7a5633;
+      }
+    }
+
+    button {
+      background-color: #7a5633;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        background-color: #9c7147;
+      }
+      &:disabled {
+        background-color: #b7a99a;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .loading-msg {
+    color: #777;
+    font-style: italic;
+  }
+
+  .ai-chat__suggest {
+    border-top: 1px solid #d6b992;
+    background-color: #f7f2e7;
+    padding: 20px;
+    text-align: center;
+
+    h3 {
+      color: #5a3e27;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    &-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+
+      button {
+        background: #fff;
+        border: 1px solid #c7a774;
+        border-radius: 20px;
+        padding: 8px 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: inherit;
+
+        &:hover {
+          background: #7a5633;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

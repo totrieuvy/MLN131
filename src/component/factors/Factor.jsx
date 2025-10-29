@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import "./Factor.scss";
 
 const Factor = () => {
   const [speakingIndex, setSpeakingIndex] = useState(null);
-  const [voices, setVoices] = useState([]);
+  const [, setVoices] = useState([]);
   const bestVoiceRef = useRef(null);
 
   // Các ảnh đã chọn (public) phù hợp nội dung

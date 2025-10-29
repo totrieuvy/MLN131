@@ -18,8 +18,8 @@ const Header = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/reason" className={({ isActive }) => (isActive ? "header__link active" : "header__link")}>
-              Nguyên Nhân
+            <NavLink to="/ai-chat" className={({ isActive }) => (isActive ? "header__link active" : "header__link")}>
+              AI Chat
             </NavLink>
           </li>
         </ul>
