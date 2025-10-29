@@ -22,6 +22,11 @@ const Header = () => {
               AI Chat
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/members" className={({ isActive }) => (isActive ? "header__link active" : "header__link")}>
+              Thành viên
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>

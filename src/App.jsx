@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AiChat from "./component/ai-chat/AiChat";
+import Member from "./component/member/Member";
 
 const Homepage = lazy(() => import("./component/homepage/Homepage"));
 const Layout = lazy(() => import("./layout/Layout"));
@@ -39,6 +40,14 @@ const App = () => {
           element: (
             <Suspense fallback={<Loading />}>
               <AiChat />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/members",
+          element: (
+            <Suspense fallback={<Loading />}>
+              <Member />
             </Suspense>
           ),
         },
