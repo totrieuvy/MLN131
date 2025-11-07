@@ -8,7 +8,7 @@ const Factor = () => {
   const [, setVoices] = useState([]);
   const bestVoiceRef = useRef(null);
 
-  // Các ảnh đã chọn (public) phù hợp nội dung
+  // Các ảnh đã chọn
   const factors = [
     {
       title: "Lãnh thổ chung",
@@ -32,30 +32,28 @@ const Factor = () => {
     },
   ];
 
-  // Tìm chọn giọng tiếng Việt "tốt nhất" trên trình duyệt
+  // GIỮ NGUYÊN — KHÔNG ĐỤNG
   useEffect(() => {
     const setAllVoices = () => {
       const available = window.speechSynthesis.getVoices() || [];
       setVoices(available);
 
-      // Ưu tiên: lang bắt đầu bằng 'vi' hoặc chứa 'Vietnam', sau đó ưu tiên name có 'Google' hoặc 'vi-VN'
       const candidates = available.filter((v) => {
         if (!v.lang) return false;
         return v.lang.toLowerCase().startsWith("vi") || v.lang.toLowerCase().includes("vietnam");
       });
 
-      // Nếu có candidates, chọn voice có "Google" trong tên hoặc fallback là first candidate
       if (candidates.length > 0) {
         const googleCandidate = candidates.find((v) => v.name && /google/i.test(v.name)) || candidates[0];
+
         bestVoiceRef.current = googleCandidate;
       } else {
-        // fallback: chọn voice có 'vn' hoặc first available
         const fallback = available.find((v) => v.lang && v.lang.toLowerCase().includes("vn")) || available[0] || null;
+
         bestVoiceRef.current = fallback;
       }
     };
 
-    // Trong nhiều trình duyệt voices load bất đồng bộ => lắng nghe event
     setAllVoices();
     window.speechSynthesis.onvoiceschanged = () => {
       setAllVoices();
@@ -66,44 +64,27 @@ const Factor = () => {
     };
   }, []);
 
+  // ✅ CHỈ CHỈNH HÀM NÀY — ĐỔI SANG RESPONSIVEVOICE
   const handleSpeak = (text, index) => {
-    // Dừng nếu đang đọc cùng đoạn -> cancel
+    // Nếu đang đọc → dừng
     if (speakingIndex === index) {
-      window.speechSynthesis.cancel();
+      if (window.responsiveVoice) window.responsiveVoice.cancel();
       setSpeakingIndex(null);
       return;
     }
 
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "vi-VN"; // cố đặt ngôn ngữ
-      // gán voice nếu có chọn
-      if (bestVoiceRef.current) {
-        utterance.voice = bestVoiceRef.current;
-      }
-
-      // điều chỉnh tỉ lệ/pitch nếu cần
-      utterance.rate = 0.95; // hơi chậm để rõ tiếng
-      utterance.pitch = 1;
-
-      utterance.onstart = () => {
-        setSpeakingIndex(index);
-      };
-      utterance.onend = () => {
-        setSpeakingIndex(null);
-      };
-      utterance.onerror = () => {
-        setSpeakingIndex(null);
-        alert("Có lỗi khi phát âm. Bạn có thể thử trình duyệt khác.");
-      };
-
-      window.speechSynthesis.speak(utterance);
+    if (window.responsiveVoice) {
+      window.responsiveVoice.cancel();
+      window.responsiveVoice.speak(text, "Vietnamese Female", {
+        rate: 1,
+        pitch: 1,
+        volume: 1,
+        onstart: () => setSpeakingIndex(index),
+        onend: () => setSpeakingIndex(null),
+        onerror: () => setSpeakingIndex(null),
+      });
     } else {
-      alert(
-        "Trình duyệt của bạn không hỗ trợ Speech Synthesis. Nếu muốn chất lượng TTS tốt hơn, cân nhắc dùng Google Cloud TTS (phải cấu hình API key)."
-      );
+      alert("ResponsiveVoice chưa load! Bạn đã thêm script vào index.html chưa?");
     }
   };
 
@@ -143,8 +124,10 @@ const Factor = () => {
               >
                 {speakingIndex === i ? "Đang đọc... (Nhấn để dừng)" : "🔊 Nghe đọc"}
               </button>
+
+              {/* GIỮ NGUYÊN: Hiển thị voice hiện tại */}
               <small className="voice-note">
-                {bestVoiceRef.current ? `Voice: ${bestVoiceRef.current.name}` : "Voice: (mặc định trình duyệt)"}
+                {bestVoiceRef.current ? `Voice: ${bestVoiceRef.current.name}` : "Voice: (mặc định)"}
               </small>
             </div>
           </div>

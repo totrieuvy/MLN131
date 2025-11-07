@@ -14,70 +14,70 @@ const AiChat = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const chatRef = useRef(null);
-  const bestVoiceRef = useRef(null);
 
-  // Gợi ý dựa theo nội dung của Homepage + Factor
   const suggestedQuestions = [
-    // Từ Homepage
     "Theo chủ nghĩa Mác - Lênin, dân tộc là gì?",
     "Một dân tộc được hình thành dựa trên những đặc trưng nào?",
-    // Từ Factor
     "Tại sao lãnh thổ lại là yếu tố thiêng liêng của một dân tộc?",
     "Ngôn ngữ chung có ý nghĩa thế nào đối với sự đoàn kết dân tộc?",
   ];
 
-  // Cuộn xuống khi có tin nhắn mới
+  // ResponsiveVoice TTS
+  const speakText = (text) => {
+    if (window.responsiveVoice) {
+      window.responsiveVoice.cancel();
+      window.responsiveVoice.speak(text, "Vietnamese Female", {
+        rate: 1,
+        pitch: 1,
+        volume: 1,
+      });
+    }
+  };
+
+  // Auto scroll
   useEffect(() => {
     if (chatRef.current) {
-      chatRef.current.scrollTo({ top: chatRef.current.scrollHeight, behavior: "smooth" });
+      chatRef.current.scrollTo({
+        top: chatRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [messages]);
 
-  // Chọn giọng nói tốt nhất
-  useEffect(() => {
-    const setVoices = () => {
-      const available = window.speechSynthesis.getVoices() || [];
-      const vn = available.find((v) => v.lang?.toLowerCase().startsWith("vi"));
-      const googleVN = available.find((v) => /google/i.test(v.name) && v.lang?.startsWith("vi"));
-      bestVoiceRef.current = googleVN || vn || available[0];
-    };
-    setVoices();
-    window.speechSynthesis.onvoiceschanged = setVoices;
-    return () => (window.speechSynthesis.onvoiceschanged = null);
-  }, []);
-
-  const speakText = (text) => {
-    if (!("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "vi-VN";
-    utterance.rate = 0.95;
-    if (bestVoiceRef.current) utterance.voice = bestVoiceRef.current;
-    window.speechSynthesis.speak(utterance);
-  };
-
+  // Gửi câu hỏi
   const handleSend = async () => {
     if (!input.trim()) return;
+
     const userMessage = { type: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
 
     try {
-      const res = await fetch("https://aziky.duckdns.org/hcm", {
+      const res = await fetch("http://47.128.217.142:8090/mln", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: input }),
+        body: JSON.stringify({ question: userMessage.content }),
       });
+
       const data = await res.json();
+
       const aiMessage = {
         type: "ai",
-        content: data.message || "Xin lỗi, tôi không thể trả lời câu hỏi này.",
+        content: data?.message || "Xin lỗi, tôi không thể trả lời câu hỏi này.",
       };
+
       setMessages((prev) => [...prev, aiMessage]);
+
+      // Đọc bằng ResponsiveVoice
       speakText(aiMessage.content);
-    } catch {
-      setMessages((prev) => [...prev, { type: "error", content: "Lỗi kết nối đến dịch vụ AI. Vui lòng thử lại sau." }]);
+    } catch (e) {
+      const errMsg = {
+        type: "error",
+        content: "Lỗi kết nối đến dịch vụ AI. Vui lòng thử lại sau.",
+      };
+      setMessages((prev) => [...prev, errMsg]);
+      speakText(errMsg.content);
     } finally {
       setIsLoading(false);
     }
@@ -126,10 +126,10 @@ const AiChat = () => {
               )}
             </div>
           ))}
+
           {isLoading && <div className="loading-msg">AI đang suy nghĩ...</div>}
         </div>
 
-        {/* Khu vực câu hỏi gợi ý */}
         {messages.length === 1 && (
           <motion.div
             className="ai-chat__suggest"
