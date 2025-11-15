@@ -14,12 +14,17 @@ const Header = () => {
           </li>
           <li>
             <NavLink to="/factors" className={({ isActive }) => (isActive ? "header__link active" : "header__link")}>
-              Các yếu tố
+              Chi tiết Dân tộc
             </NavLink>
           </li>
           <li>
             <NavLink to="/ai-chat" className={({ isActive }) => (isActive ? "header__link active" : "header__link")}>
               AI Chat
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/nationalism" className={({ isActive }) => (isActive ? "header__link active" : "header__link")}>
+              Chủ nghĩa dân tộc
             </NavLink>
           </li>
           <li>

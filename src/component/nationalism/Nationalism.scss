@@ -1,0 +1,166 @@
+.nationalism {
+  background: #fbf7ef; // Giống homepage
+  padding: 60px 24px;
+  font-family: "Merriweather", serif; // Giống factor
+  color: #222;
+  min-height: 100vh;
+
+  &__intro {
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #3c2f1e; // Màu đậm
+    }
+
+    p {
+      color: #5c4b32; // Màu văn bản
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+  }
+
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+  }
+
+  &__comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  &__model {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    padding: 25px 30px;
+    display: flex;
+    flex-direction: column;
+
+    &-header {
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      span {
+        font-style: italic;
+        color: #666;
+        font-size: 0.95rem;
+      }
+    }
+
+    // Màu viền khác biệt
+    &.ethnic {
+      border-top: 5px solid #c22525; // Đỏ đậm (Tộc người)
+      .nationalism__model-header h3 {
+        color: #c22525;
+      }
+    }
+    &.civic {
+      border-top: 5px solid #256ec2; // Xanh (Công dân)
+      .nationalism__model-header h3 {
+        color: #256ec2;
+      }
+    }
+
+    p {
+      color: #3b3b3b;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      // flex-grow: 1; (Đã xoá)
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      // flex-grow: 1; (Đã xoá)
+      
+      li {
+        margin-bottom: 12px;
+        line-height: 1.6;
+        color: #111;
+        strong {
+          font-weight: 700;
+          color: #000;
+        }
+      }
+    }
+
+    /* === THÊM ĐOẠN NÀY ĐỂ STYLE ẢNH === */
+    .nationalism__model-image {
+      width: 100%;
+      height: 200px; // Chiều cao cố định cho đồng nhất
+      object-fit: cover; // Đảm bảo ảnh vừa vặn đẹp
+      border-radius: 8px;
+      margin-top: 15px; // Khoảng cách với nội dung bên trên
+      margin-bottom: 20px; // Khoảng cách tới footer
+    }
+    /* =================================== */
+
+    &-footer {
+      margin-top: auto; // Đẩy footer xuống dưới
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+
+      &.exclusive {
+        background: #fff4f4;
+        color: #b91c1c;
+      }
+      &.inclusive {
+        background: #f4f8ff;
+        color: #1e40af;
+      }
+    }
+  }
+
+  &__analysis {
+    margin-top: 60px;
+    padding: 30px 40px;
+    background: rgba(255, 255, 255, 0.86); // Giống lenin-glass
+    border-left: 6px solid #7a5633; // Giống factor speak
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(10, 10, 8, 0.03);
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #1f1f1d;
+    }
+
+    p {
+      font-size: 1.02rem;
+      line-height: 1.8rem;
+      color: #2b2b28;
+      margin-bottom: 16px;
+    }
+  }
+
+  // Responsive
+  @media (max-width: 900px) {
+    &__comparison {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    &__intro {
+      padding: 0 5%;
+    }
+  }
+}

@@ -22,6 +22,31 @@ const AiChat = () => {
     "Ngôn ngữ chung có ý nghĩa thế nào đối với sự đoàn kết dân tộc?",
   ];
 
+  // === THÊM MẢNG PROMPT MỚI ===
+  const prompts = [
+    {
+      title: "Phác thảo ý tưởng và cấu trúc website",
+      text: "Tôi muốn xây dựng một website giáo dục (micro-site) về chủ đề 'Khái niệm Dân tộc theo Chủ nghĩa Mác-Lênin'. Hãy đề xuất một cấu trúc trang (sitemap) hợp lý. Tôi dự định có Trang chủ (giới thiệu chung), một trang chi tiết về các đặc trưng, một trang về lịch sử hình thành, và một trang so sánh các mô hình chủ nghĩa dân tộc. Gợi ý một bảng màu (theme) chủ đạo mang tính học thuật, trang trọng (ví dụ: màu giấy da, xanh rêu đậm, vàng kim).",
+    },
+    {
+      title: "Tổng hợp và biên tập nội dung học thuật",
+      text: "Dựa trên tệp tài liệu 'Mở Rộng Khái Niệm Quốc Gia Dân Tộc.pdf', hãy giúp tôi biên tập nội dung cho 3 phần chính của website: 1. Nội dung Trang chủ: tập trung vào 5 đặc trưng cơ bản và tóm tắt đề cương Lênin. 2. Nội dung trang Lịch sử: tập trung vào Hòa ước Westfalen và Cách mạng Pháp. 3. Nội dung trang So sánh: tập trung vào 2 mô hình Chủ nghĩa Dân tộc Tộc người (Ethnic) và Công dân (Civic).",
+    },
+    {
+      title: "Đề xuất thiết kế layout (Bố cục)",
+      text: "Làm thế nào để trình bày 5 đặc trưng của dân tộc trên Trang chủ một cách trực quan và đỡ nhàm chán? Hãy gợi ý một layout (ví dụ: xen kẽ hình ảnh và văn bản). Đồng thời, hãy thiết kế một layout ấn tượng cho phần 'Đề cương Lênin' để làm nổi bật nó so với phần văn bản thông thường (ví dụ: sử dụng nền tối, màu tương phản, và bố cục thẻ).",
+    },
+    {
+      title: "Tư vấn và tích hợp tính năng kỹ thuật (TTS)",
+      text: "Tôi muốn website có tính năng Text-to-Speech (TTS) để hỗ trợ người dùng. Hãy đề xuất một API hoặc thư viện Javascript dễ sử dụng (ví dụ: ResponsiveVoice) hỗ trợ tốt giọng 'Vietnamese Female'. Hướng dẫn tôi cách triển khai cơ bản trong React: làm thế nào để tạo một nút bấm 'Nghe đọc' cho mỗi đoạn văn bản và quản lý trạng thái (phát/dừng) của chúng một cách độc lập.",
+    },
+    {
+      title: "Tạo Giao diện AI Chatbot",
+      text: "Tôi cần một trang 'AI Chat' để người dùng có thể hỏi đáp trực tiếp. Hãy thiết kế giao diện (JSX và SCSS) cho một hộp chat đơn giản, có nền (background) chủ đề lịch sử. Hướng dẫn cách kết nối (fetch) đến một API endpoint (ví dụ: 'https://hlui.duckdns.org/mln') để gửi câu hỏi của người dùng (dưới dạng JSON) và nhận về câu trả lời để hiển thị lên giao diện.",
+    },
+  ];
+  // =============================
+
   // ResponsiveVoice TTS
   const speakText = (text) => {
     if (window.responsiveVoice) {
@@ -161,6 +186,25 @@ const AiChat = () => {
           </button>
         </div>
       </motion.div>
+
+      {/* === KHUNG PROMPT MỚI === */}
+      <motion.section
+        className="ai-chat__prompts"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+      >
+        <h2>Các Prompt Kỹ Thuật Đã Sử Dụng</h2>
+        <div className="ai-chat__prompts-list">
+          {prompts.map((prompt, index) => (
+            <div className="prompt-card" key={index}>
+              <h3>{prompt.title}</h3>
+              <p>&quot;{prompt.text}&quot;</p>
+            </div>
+          ))}
+        </div>
+      </motion.section>
+      {/* ======================= */}
     </div>
   );
 };
