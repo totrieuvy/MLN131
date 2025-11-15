@@ -1,192 +1,196 @@
-.homepage {
-  background: #fff;
-  color: #333;
-  line-height: 1.8;
+/* ===== THEME: LỊCH SỬ - VĂN HÓA VIỆT NAM (PARCHMENT / WARM) ===== */
+.homepage.vietnam-heritage {
+  width: 100%;
+  font-family: "Segoe UI", "Noto Serif", serif;
+  color: #1b1b18;
+  background: linear-gradient(180deg, #fbf7ef 0%, #f3ead8 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
 
-  &__banner {
-    background: linear-gradient(135deg, #ff9a3d, #ff7a00);
-    text-align: center;
-    padding: 10px 20px;
-    color: #fff;
-    border-radius: 0 0 40px 40px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+/* subtle paper texture using radial-gradient overlays */
+.homepage.vietnam-heritage::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
 
-    .homepage__title {
-      font-size: 3rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-    }
+/* BANNER */
+.homepage__banner {
+  position: relative;
+  height: 48vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(194, 33, 39, 0.12), rgba(255, 195, 0, 0.06)),
+    url("https://images.unsplash.com/photo-1543353071-087092ec393b") center/cover no-repeat;
+  border-bottom: 6px solid rgba(194, 33, 39, 0.12);
+}
+
+.banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.12));
+  backdrop-filter: blur(2px);
+}
+
+.homepage__title {
+  position: relative;
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #2a2a26;
+  text-align: center;
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  z-index: 2;
+}
+
+/* CONTENT */
+.homepage__content {
+  padding: 60px 10%;
+  text-align: left;
+}
+
+.homepage__heading {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #2b2b28;
+}
+
+.homepage__text p {
+  font-size: 1.05rem;
+  line-height: 1.9rem;
+  margin-bottom: 18px;
+  color: #2b2b28;
+}
+
+.homepage__text h3 {
+  margin-top: 18px;
+  font-size: 1.15rem;
+  color: #1f1f1d;
+}
+
+.homepage__text ul {
+  margin-left: 18px;
+}
+
+.homepage__text ul li {
+  margin-bottom: 14px;
+  font-size: 1.02rem;
+}
+
+/* Image grid tuned for Vietnamese heritage images */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.image-grid img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: transform 0.35s ease, filter 0.35s ease;
+  filter: saturate(0.95) contrast(0.98);
+}
+
+.image-grid img:hover {
+  transform: translateY(-6px) scale(1.02);
+  filter: saturate(1.05) contrast(1.03);
+}
+
+/* LENIN GLASS SECTION - keep readable on warm background */
+.lenin-glass {
+  margin-top: 50px;
+  padding: 48px 10%;
+  background: rgba(255, 255, 255, 0.86);
+  border-left: 6px solid rgba(194, 33, 39, 0.16);
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(10, 10, 8, 0.03);
+}
+
+.lenin-glass__title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1f1f1d;
+}
+
+.lenin-glass__intro,
+.lenin-glass__desc,
+.lenin-glass__footer {
+  font-size: 1.02rem;
+  line-height: 1.8rem;
+  color: #2b2b28;
+  margin-bottom: 16px;
+}
+
+.lenin-glass__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.lenin-glass__card {
+  background: linear-gradient(180deg, rgba(255, 243, 224, 0.6), rgba(255, 243, 224, 0.45));
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(194, 33, 39, 0.06);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.lenin-glass__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.lenin-glass__card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  color: #2b2b28;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .homepage__content,
+  .lenin-glass {
+    padding: 36px 6%;
   }
-
-  &__content {
-    padding: 60px 10%;
-    max-width: 1000px;
-    margin: 0 auto;
-
-    .homepage__heading {
-      text-align: center;
-      font-weight: 700;
-      font-size: 2rem;
-      color: #222;
-      margin-bottom: 25px;
-      position: relative;
-
-      &::after {
-        content: "";
-        display: block;
-        width: 80px;
-        height: 4px;
-        background: linear-gradient(90deg, #ff7a00, #ffb84a);
-        margin: 12px auto 0;
-        border-radius: 2px;
-      }
-    }
-
-    .homepage__text {
-      font-size: 1.05rem;
-      color: #444;
-      text-align: justify;
-
-      ul {
-        margin-left: 25px;
-        li {
-          margin-bottom: 10px;
-        }
-      }
-
-      strong {
-        color: #d16c00;
-      }
-    }
+  .image-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-/* ===== LÊ-NIN GLASS SECTION ===== */
-.lenin-glass {
-  background: linear-gradient(135deg, #fff9f3, #fff);
-  padding: 80px 10%;
-  border-radius: 30px;
-  text-align: center;
-  margin: 70px auto;
-  position: relative;
-  overflow: hidden;
-  max-width: 1200px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 20%, #ffbb6b55, transparent 70%);
-    filter: blur(100px);
-    z-index: 0;
+@media (max-width: 600px) {
+  .image-grid {
+    grid-template-columns: 1fr;
   }
-
-  &__title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: #2d2d2d;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 2;
+  .homepage__title {
+    font-size: 1.6rem;
+    padding: 10px 16px;
   }
-
-  &__intro {
-    font-size: 1.1rem;
-    color: #555;
-    max-width: 850px;
-    margin: 0 auto 25px;
-    position: relative;
-    z-index: 2;
+  .homepage__heading {
+    font-size: 1.3rem;
   }
+}
 
-  &__trends {
-    list-style: none;
-    text-align: left;
-    max-width: 850px;
-    margin: 20px auto 35px;
-    position: relative;
-    z-index: 2;
-
-    li {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-      border-left: 4px solid #ff9a00;
-      margin-bottom: 12px;
-      padding: 12px 18px;
-      border-radius: 8px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-      strong {
-        color: #c96a00;
-      }
-    }
-  }
-
-  &__desc {
-    font-style: italic;
-    color: #555;
-    margin-bottom: 40px;
-    z-index: 2;
-    position: relative;
-  }
-
-  &__cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    z-index: 2;
-    position: relative;
-
-    .lenin-glass__card {
-      flex: 1 1 300px;
-      backdrop-filter: blur(12px);
-      background: rgba(255, 255, 255, 0.65);
-      border: 1px solid rgba(255, 165, 0, 0.3);
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-
-      &:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-      }
-
-      h3 {
-        color: #c96a00;
-        font-weight: 700;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-      }
-
-      p {
-        color: #444;
-        text-align: justify;
-        font-size: 0.98rem;
-      }
-    }
-  }
-
-  &__footer {
-    margin-top: 40px;
-    font-style: italic;
-    color: #555;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  @media (max-width: 768px) {
-    padding: 50px 20px;
-
-    &__title {
-      font-size: 1.6rem;
-    }
-
-    &__cards {
-      flex-direction: column;
-    }
-  }
+/* small utility */
+.academic strong {
+  font-weight: 700;
+}
+.expanded-text {
+  text-align: justify;
 }
